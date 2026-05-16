@@ -1,15 +1,34 @@
 # LP用 画像素材一覧
-## B. 顔写真（クライアントに用意いただくもの）: 1点
 
-| # | 用途 | 配置場所 | 推奨サイズ | 形式 | 備考 |
-|---|---|---|---|---|---|
-| **B-1** | 講師プロフィール写真 | 自己紹介セクション | **440×440px** 以上（正方形） | JPG | CSSで**円形に切り抜き**（220×220px表示、Retinaで2倍必要）。胸から上のバストアップ、笑顔で表情がわかるもの。背景はシンプルなものが望ましい |
+## 現行ファイル構成（実装で使用中）
 
-**合計: 1枚**（顔写真は1枚のみ）
+| 配置 | パス | 用途 |
+|---|---|---|
+| KV | `images/hero/hero-family.jpg` | ヒーロー画像（親子写真） |
+| 自己紹介 | `images/profile/profile-portrait.jpg` | 「カブラルサエ」上部のリードポートレート |
+| 自己紹介 / 看護師 | `images/profile/profile-nurse-portrait.jpg` | 看護師としてのポートレート（1 枚目） |
+| 自己紹介 / 看護師 | `images/profile/profile-nurse-surgery.jpg` | 看護師としての医療現場ショット（2 枚目） |
+| サービス | `images/service/service-kamishibai.jpg` | 紙芝居・歌の出前授業 |
+| サービス | `images/service/service-staff-training.jpg` | 職員研修 |
+| サービス | `images/service/service-classroom.jpg` | 小学校での包括的性教育（複数カードで使用） |
+| サービス | `images/service/service-guardian-training.jpg` | 保護者向け講座 |
+| サービス | `images/service/service-online-lesson.jpg` | オンライン個別レッスン |
+| ファビコン | `images/favicon/*` | 各サイズのファビコン |
 
 ---
 
-## 補足: 現在アイコンで代替しているもの（画像不要）
+## 未使用ファイル（保持中・参考用）
+
+クライアント支給素材の元データを残しています。差し替え検討時に利用可能：
+
+- `images/profile/profile-kimono.jpg` — 着物姿（神社・桜背景）
+- `images/profile/profile-nurse-smile.jpg` — 旧：超音波装置前のポーズ写真
+- `images/profile/profile-nurse-ultrasound.jpg` — 旧：超音波装置前の作業ショット
+- 作業ディレクトリ直下 `LINE_ALBUM_HP写真_260516_2/3/4/6/7/8.jpg` — クライアント支給の未採用 6 枚
+
+---
+
+## 補足: アイコンで代替している箇所（画像不要）
 
 | 箇所 | 現状の処理 |
 |---|---|
