@@ -1234,6 +1234,13 @@ a { color: inherit; }
   min-height: 140px;
   resize: vertical;
 }
+.form-helper {
+  margin: 8px 2px 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-light);
+  letter-spacing: 0.02em;
+}
 
 .checkbox-group {
   margin-bottom: 24px;
