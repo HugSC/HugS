@@ -3259,9 +3259,11 @@ a { color: inherit; }
   font-weight: 600;
   margin-top: 2px;
 }
+.faq-a-body {
+  flex: 1;
+}
 .faq-answer p {
   margin: 0;
-  flex: 1;
 }
 
 /* =================================================
