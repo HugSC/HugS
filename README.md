@@ -5,6 +5,7 @@
 | 配置 | パス | 用途 |
 |---|---|---|
 | KV | `images/hero/hero-family.jpg` | ヒーロー画像（親子写真） |
+| ストーリー | `images/brand/yansae-logo.jpg` | 「なぜ赤ジャージで?」セクションのヤンサエ円形ロゴ（赤ジャージ姿）。白背景は `mix-blend-mode: multiply` で透過表示 |
 | 自己紹介 | `images/profile/profile-portrait.jpg` | 「カブラルサエ」上部のリードポートレート |
 | 自己紹介 / 看護師 | `images/profile/profile-nurse-portrait.jpg` | 看護師としてのポートレート（1 枚目） |
 | 自己紹介 / 看護師 | `images/profile/profile-nurse-surgery.jpg` | 看護師としての医療現場ショット（2 枚目） |

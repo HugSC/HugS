@@ -766,6 +766,186 @@ a { color: inherit; }
   font-style: normal;
 }
 
+/* ===== STORY (なぜ赤ジャージで?) ===== */
+/* 「講座の様子」→ story の継ぎ目が二重 padding で空きすぎるため詰める */
+#services {
+  padding-bottom: clamp(40px, 6vw, 64px);
+}
+.story {
+  background: var(--base);
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(36px, 5vw, 60px);
+}
+.story .container {
+  position: relative;
+  z-index: 1;
+}
+.story-logo {
+  margin: clamp(24px, 4vw, 36px) auto clamp(20px, 3vw, 30px);
+  max-width: 240px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 54% 46% 47% 53% / 58% 52% 48% 42%;
+}
+.story-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  mix-blend-mode: multiply;
+}
+.story-body {
+  max-width: 620px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--text);
+}
+.story-body p {
+  margin: 0;
+}
+.story-body p + p {
+  margin-top: 1.1em;
+}
+.story-sns-link {
+  margin-top: 14px;
+}
+/* 2カラム: 左=ロゴ+IG / 右=本文（About .about-grid を踏襲） */
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  max-width: 900px;
+  margin: clamp(24px, 4vw, 36px) auto 0;
+}
+.story-media {
+  text-align: center;
+}
+.story-media .story-logo {
+  margin-top: 0;
+  margin-bottom: clamp(16px, 2.5vw, 24px);
+}
+/* 右カラムの本文は左寄せ・幅いっぱい（.section-center の中央寄せを上書き） */
+.story-grid .story-body {
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+@media (max-width: 768px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    max-width: 560px;
+  }
+  .story-grid .story-body {
+    text-align: center;
+  }
+}
+/* デコは中央寄り（コンテンツ周辺の左右余白）に集め、配色・回転・揺れを
+   「講座の様子」と変えてランダムに見せる。本文(中央620px)・ロゴには重ねない */
+/* .story プレフィックスで詳細度を上げ、基底 .services-gallery-flower の
+   opacity / animation ショートハンド（ソース順で後）に勝たせる */
+.story .story-flower--1 {
+  top: 16%;
+  left: 20%;
+  width: 58px;
+  height: 58px;
+  color: var(--main-teal);
+  opacity: 0.5;
+  transform: rotate(-8deg);
+  animation-delay: 0.3s;
+  animation-duration: 6.5s;
+}
+.story .story-flower--2 {
+  top: 20%;
+  right: 15%;
+  width: 50px;
+  height: 50px;
+  color: var(--red-light);
+  opacity: 0.6;
+  transform: rotate(16deg);
+  animation-delay: 1.4s;
+  animation-duration: 7s;
+}
+.story .story-flower--3 {
+  bottom: 10%;
+  left: 18%;
+  width: 72px;
+  height: 72px;
+  color: var(--yellow);
+  opacity: 0.5;
+  transform: rotate(-20deg);
+  animation-delay: 0.8s;
+  animation-duration: 5.5s;
+}
+.story .story-flower--4 {
+  bottom: 20%;
+  right: 17%;
+  width: 62px;
+  height: 62px;
+  color: var(--red-light);
+  opacity: 0.45;
+  transform: rotate(8deg);
+  animation-delay: 2.1s;
+  animation-duration: 8s;
+}
+.story .story-note--1 {
+  top: 52%;
+  left: 12%;
+  width: 42px;
+  height: 42px;
+  color: var(--red);
+  opacity: 0.5;
+  transform: rotate(10deg);
+  animation-delay: 0.5s;
+  animation-duration: 5s;
+}
+.story .story-note--2 {
+  top: 40%;
+  right: 13%;
+  width: 46px;
+  height: 46px;
+  color: var(--main-teal);
+  opacity: 0.45;
+  transform: rotate(-14deg);
+  animation-delay: 1.8s;
+  animation-duration: 6s;
+}
+@media (max-width: 600px) {
+  .story .story-note--1,
+  .story .story-note--2 {
+    display: none;
+  }
+  /* モバイルは全幅でテキストに重なるため四隅へ戻す */
+  .story .story-flower--1 {
+    width: 46px;
+    height: 46px;
+    top: 10px;
+    left: 1%;
+  }
+  .story .story-flower--2 {
+    width: 42px;
+    height: 42px;
+    top: 6%;
+    right: 1%;
+  }
+  .story .story-flower--3 {
+    width: 58px;
+    height: 58px;
+    bottom: 5%;
+    left: 0;
+  }
+  .story .story-flower--4 {
+    width: 50px;
+    height: 50px;
+    bottom: 9%;
+    right: 0;
+  }
+}
+
 /* ===== VISION ===== */
 .vision {
   background: var(--white);
@@ -2492,11 +2672,25 @@ a { color: inherit; }
 }
 
 /* ===== SERVICES GALLERY (Atmosphere / 講座の様子) ===== */
+.services { overflow: hidden; }
 .services-gallery {
   position: relative;
   margin-top: clamp(56px, 8vw, 88px);
   padding-top: clamp(40px, 6vw, 64px);
   border-top: 1px dashed rgba(107, 158, 120, 0.2);
+}
+/* デコをビューポート全幅基準にし、セクション左右端に貼り付ける
+   （story / About と挙動を統一）。縦はギャラリー帯に固定。 */
+.services-gallery-deco {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 .services-gallery-flower {
   position: absolute;
@@ -2507,7 +2701,7 @@ a { color: inherit; }
 }
 .services-gallery-flower--1 {
   top: 24px;
-  left: 4%;
+  left: 25%;
   width: 64px;
   height: 64px;
   color: var(--yellow);
@@ -2516,7 +2710,7 @@ a { color: inherit; }
 }
 .services-gallery-flower--2 {
   top: 56px;
-  right: 5%;
+  right: 25%;
   width: 56px;
   height: 56px;
   color: var(--main-teal);
@@ -2526,7 +2720,7 @@ a { color: inherit; }
 }
 .services-gallery-flower--3 {
   bottom: -20px;
-  left: -10px;
+  left: 10%;
   width: 88px;
   height: 88px;
   color: var(--red-light);
@@ -2537,7 +2731,7 @@ a { color: inherit; }
 }
 .services-gallery-flower--4 {
   bottom: 8%;
-  right: -8px;
+  right: 15%;
   width: 76px;
   height: 76px;
   color: var(--yellow);
@@ -2554,8 +2748,8 @@ a { color: inherit; }
   animation: float-y 6s var(--ease-in-out) infinite;
 }
 .services-gallery-note--1 {
-  top: 38%;
-  left: -8px;
+  top: 20%;
+  left: 15%;
   width: 42px;
   height: 42px;
   color: var(--main-teal);
@@ -2565,7 +2759,7 @@ a { color: inherit; }
 }
 .services-gallery-note--2 {
   top: 44%;
-  right: 1.5%;
+  right: 20%;
   width: 48px;
   height: 48px;
   color: var(--red);
