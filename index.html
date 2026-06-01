@@ -240,29 +240,19 @@
       </p>
     </div>
 
-    <div class="service-tabs" role="tablist" aria-label="サービスのカテゴリー">
-      <button type="button" class="service-tab is-active" role="tab" aria-selected="true" aria-controls="panel-school" id="tab-school" data-target="panel-school">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        園・学校向け
-      </button>
-      <button type="button" class="service-tab" role="tab" aria-selected="false" aria-controls="panel-parents" id="tab-parents" data-target="panel-parents">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        保護者・家庭向け
-      </button>
-    </div>
-
-    <!-- Panel 1: 園・学校向け -->
-    <div class="service-panel is-active" id="panel-school" role="tabpanel" aria-labelledby="tab-school">
+    <!-- Group 1: 園・学校の方へ -->
+    <div class="service-group">
+      <h3 class="service-group-heading">園・学校の方へ</h3>
       <div class="services-grid">
 
-        <article class="service-card service-card--teal">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-kamishibai.jpg" alt="保育園・幼稚園で行う紙芝居と歌を使った出前授業の様子" loading="lazy">
-            </div>
+        <article class="service-card service-card--teal reveal reveal-delay-1">
+          <div class="service-card-image">
+            <img src="images/service/service-kamishibai.jpg" alt="保育園・幼稚園で行う紙芝居と歌を使った出前授業の様子" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-teal">保育園・幼稚園児向け</span>
-              <h3 class="service-card-title">じぶんのからだをまもるおはなし</h3>
+              <h4 class="service-card-title">じぶんのからだをまもるおはなし</h4>
               <p class="service-card-desc">性被害予防・命の教育・人権教育を、歌と紙芝居で楽しく伝える出前授業です。</p>
               <ul class="service-card-points">
                 <li>対象：保育園・幼稚園児</li>
@@ -270,60 +260,67 @@
                 <li>形式:紙芝居＋歌＋ワーク</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">講座の流れ</h4>
-              <ol class="service-flow-list">
-                <li class="service-flow-step">
-                  <span class="service-flow-step-badge">STEP.1</span>
-                  <span class="service-flow-step-time">10分</span>
-                  <p class="service-flow-step-title">導入</p>
-                  <p class="service-flow-step-text">紙芝居で具体的な場面を想像する。</p>
-                </li>
-                <li class="service-flow-step">
-                  <span class="service-flow-step-badge">STEP.2</span>
-                  <span class="service-flow-step-time">10分</span>
-                  <p class="service-flow-step-title">同意・境界線</p>
-                  <p class="service-flow-step-text">自分の気持ちを感じ、からだと心を大切にすること／イヤって言っても大丈夫を知る。</p>
-                </li>
-                <li class="service-flow-step">
-                  <span class="service-flow-step-badge">STEP.3</span>
-                  <span class="service-flow-step-time">5分</span>
-                  <p class="service-flow-step-title">体の名前</p>
-                  <p class="service-flow-step-text">プライベートパーツはあなただけのもの。</p>
-                </li>
-                <li class="service-flow-step">
-                  <span class="service-flow-step-badge">STEP.4</span>
-                  <span class="service-flow-step-time">10分</span>
-                  <p class="service-flow-step-title">困った時の対処法</p>
-                  <p class="service-flow-step-text">プライベートパーツの歌（逃げてもいい・イヤって思っていい・大人に言ってもいい）</p>
-                </li>
-                <li class="service-flow-step">
-                  <span class="service-flow-step-badge">STEP.5</span>
-                  <span class="service-flow-step-time">5分</span>
-                  <p class="service-flow-step-title">まとめ</p>
-                  <p class="service-flow-step-text">あなたは大切な存在</p>
-                </li>
-              </ol>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講演料</span>
-                <span class="service-price-amount">30〜45分 15,000円</span>
-                <span class="service-price-note">打ち合わせあり／交通費別途　<span class="service-price-highlight">★ 2026年度は無料（交通費別途）</span></span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講演料</span>
+              <span class="service-price-amount">30〜45分 15,000円</span>
+              <span class="service-price-note">打ち合わせあり／交通費別途　<span class="service-price-highlight">★ 2026年度は無料（交通費別途）</span></span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">講座の流れ</h5>
+                <ol class="service-flow-list">
+                  <li class="service-flow-step">
+                    <span class="service-flow-step-badge">STEP.1</span>
+                    <span class="service-flow-step-time">10分</span>
+                    <p class="service-flow-step-title">導入</p>
+                    <p class="service-flow-step-text">紙芝居で具体的な場面を想像する。</p>
+                  </li>
+                  <li class="service-flow-step">
+                    <span class="service-flow-step-badge">STEP.2</span>
+                    <span class="service-flow-step-time">10分</span>
+                    <p class="service-flow-step-title">同意・境界線</p>
+                    <p class="service-flow-step-text">自分の気持ちを感じ、からだと心を大切にすること／イヤって言っても大丈夫を知る。</p>
+                  </li>
+                  <li class="service-flow-step">
+                    <span class="service-flow-step-badge">STEP.3</span>
+                    <span class="service-flow-step-time">5分</span>
+                    <p class="service-flow-step-title">体の名前</p>
+                    <p class="service-flow-step-text">プライベートパーツはあなただけのもの。</p>
+                  </li>
+                  <li class="service-flow-step">
+                    <span class="service-flow-step-badge">STEP.4</span>
+                    <span class="service-flow-step-time">10分</span>
+                    <p class="service-flow-step-title">困った時の対処法</p>
+                    <p class="service-flow-step-text">プライベートパーツの歌（逃げてもいい・イヤって思っていい・大人に言ってもいい）</p>
+                  </li>
+                  <li class="service-flow-step">
+                    <span class="service-flow-step-badge">STEP.5</span>
+                    <span class="service-flow-step-time">5分</span>
+                    <p class="service-flow-step-title">まとめ</p>
+                    <p class="service-flow-step-text">あなたは大切な存在</p>
+                  </li>
+                </ol>
+              </div>
+            </details>
           </div>
         </article>
 
-        <article class="service-card service-card--green">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-staff-training.jpg" alt="保育者・教員向けの職員研修の様子" loading="lazy">
-            </div>
+        <article class="service-card service-card--green reveal reveal-delay-2">
+          <div class="service-card-image">
+            <img src="images/service/service-staff-training.jpg" alt="保育者・教員向けの職員研修の様子" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-green">小学校1〜6年生向け</span>
-              <h3 class="service-card-title">包括的性教育の出前授業</h3>
+              <h4 class="service-card-title">包括的性教育の出前授業</h4>
               <p class="service-card-desc">「心と体への向き合い方」「人間関係」をベースに、年齢に合わせて学びます。</p>
               <ul class="service-card-points">
                 <li>対象：小学校1〜6年生</li>
@@ -331,37 +328,44 @@
                 <li>形式：講話＋ワーク</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">扱うテーマ</h4>
-              <ul class="service-card-detail-list">
-                <li>プライベートゾーン</li>
-                <li>NO・GO・TELL</li>
-                <li>同意・境界線</li>
-                <li>二次性徴・思春期・生理・射精について</li>
-                <li>インターネット・SNS・LINEとの付き合い方</li>
-                <li>デートDV</li>
-                <li>生殖・避妊・性感染症（不妊治療や婦人科の現場のリアルを交えて）</li>
-              </ul>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講演料</span>
-                <span class="service-price-amount">1時間 5,000円〜（要相談）</span>
-                <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費別途</span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講演料</span>
+              <span class="service-price-amount">1時間 5,000円〜（要相談）</span>
+              <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費別途</span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">扱うテーマ</h5>
+                <ul class="service-card-detail-list">
+                  <li>プライベートゾーン</li>
+                  <li>NO・GO・TELL</li>
+                  <li>同意・境界線</li>
+                  <li>二次性徴・思春期・生理・射精について</li>
+                  <li>インターネット・SNS・LINEとの付き合い方</li>
+                  <li>デートDV</li>
+                  <li>生殖・避妊・性感染症（不妊治療や婦人科の現場のリアルを交えて）</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </article>
 
-        <article class="service-card service-card--yellow">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-classroom.jpg" alt="小学校で行う包括的性教育の授業風景" loading="lazy">
-            </div>
+        <article class="service-card service-card--yellow reveal reveal-delay-1">
+          <div class="service-card-image">
+            <img src="images/service/service-classroom.jpg" alt="小学校で行う包括的性教育の授業風景" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-yellow">職員研修</span>
-              <h3 class="service-card-title">先生方向けの性教育研修</h3>
+              <h4 class="service-card-title">先生方向けの性教育研修</h4>
               <p class="service-card-desc">子どもに関わる職業の方向けに、性教育の伝え方・取り入れ方を具体的にお話しします。</p>
               <ul class="service-card-points">
                 <li>対象：保育士・幼稚園/小学校教員など</li>
@@ -369,36 +373,43 @@
                 <li>形式：講演＋ディスカッション＋Q&amp;A</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">扱うテーマ</h4>
-              <ul class="service-card-detail-list">
-                <li>日本の性教育の現状と教育現場、海外との比較</li>
-                <li>性教育の進め方、具体例</li>
-                <li>よくある先生方のお悩み具体例</li>
-                <li>生殖・避妊・性感染症（不妊治療や婦人科の現場のリアルを交えて）</li>
-                <li>現在の性被害の実態、インターネットとの付き合い方</li>
-                <li>保護者対応・クレーム対策・アフターフォロー</li>
-              </ul>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講演料</span>
-                <span class="service-price-amount">1時間 50,000円〜（要相談）</span>
-                <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費応相談</span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講演料</span>
+              <span class="service-price-amount">1時間 50,000円〜（要相談）</span>
+              <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費応相談</span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">扱うテーマ</h5>
+                <ul class="service-card-detail-list">
+                  <li>日本の性教育の現状と教育現場、海外との比較</li>
+                  <li>性教育の進め方、具体例</li>
+                  <li>よくある先生方のお悩み具体例</li>
+                  <li>生殖・避妊・性感染症（不妊治療や婦人科の現場のリアルを交えて）</li>
+                  <li>現在の性被害の実態、インターネットとの付き合い方</li>
+                  <li>保護者対応・クレーム対策・アフターフォロー</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </article>
 
-        <article class="service-card service-card--teal">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-guardian-training.jpg" alt="保護者向け講座の様子" loading="lazy">
-            </div>
+        <article class="service-card service-card--teal reveal reveal-delay-2">
+          <div class="service-card-image">
+            <img src="images/service/service-guardian-training.jpg" alt="保護者向け講座の様子" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-teal">保護者向け講座</span>
-              <h3 class="service-card-title">園・学校で開く 保護者向け講座</h3>
+              <h4 class="service-card-title">園・学校で開く 保護者向け講座</h4>
               <p class="service-card-desc">家庭でできる性教育の始め方・防犯・よくある質問を、園/学校で開催します。</p>
               <ul class="service-card-points">
                 <li>対象：園・学校の保護者の方々</li>
@@ -406,40 +417,48 @@
                 <li>効果：保護者満足度UP・教育熱心な園としてのブランディング</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">期待できる変化</h4>
-              <ul class="service-card-detail-list">
-                <li>保護者の満足度が上がり、教育熱心・安心な園として選ばれる</li>
-                <li>園と保護者の共通認識ができ、協力体制が生まれる</li>
-                <li>家庭内での性教育のハードルが下がり、子どもとの会話が増える</li>
-              </ul>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講演料</span>
-                <span class="service-price-amount">1時間 30,000円〜（要相談）</span>
-                <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費応相談</span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講演料</span>
+              <span class="service-price-amount">1時間 30,000円〜（要相談）</span>
+              <span class="service-price-note">ご予算に合わせて相談可／打ち合わせあり／交通費応相談</span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">期待できる変化</h5>
+                <ul class="service-card-detail-list">
+                  <li>保護者の満足度が上がり、教育熱心・安心な園として選ばれる</li>
+                  <li>園と保護者の共通認識ができ、協力体制が生まれる</li>
+                  <li>家庭内での性教育のハードルが下がり、子どもとの会話が増える</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </article>
 
       </div>
     </div>
 
-    <!-- Panel 2: 保護者・家庭向け -->
-    <div class="service-panel" id="panel-parents" role="tabpanel" aria-labelledby="tab-parents" hidden>
+    <!-- Group 2: ご家庭の方へ -->
+    <div class="service-group">
+      <h3 class="service-group-heading">ご家庭の方へ</h3>
       <div class="services-grid">
 
-        <article class="service-card service-card--green">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-classroom.jpg" alt="子ども性教育LABOの対面講座の様子" loading="lazy">
-            </div>
+        <article class="service-card service-card--green reveal reveal-delay-1">
+          <div class="service-card-image">
+            <img src="images/service/service-classroom.jpg" alt="子ども性教育LABOの対面講座の様子" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-green">対面講座</span>
-              <h3 class="service-card-title">子ども性教育LABO</h3>
+              <h4 class="service-card-title">子ども性教育LABO</h4>
               <p class="service-card-desc">「からだの変化」を実験やゲームを使って、親子で楽しく学ぶ対面講座です。</p>
               <ul class="service-card-points">
                 <li>対象：0歳〜小学生高学年のお子様と保護者の方</li>
@@ -447,36 +466,43 @@
                 <li>形式：実験・ゲームを使った参加型ワーク</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">扱うテーマ</h4>
-              <ul class="service-card-detail-list">
-                <li>赤ちゃんはどこから生まれてくるの？／タッチケア／あなたが生まれた時のおはなし</li>
-                <li>命のはじまり、性交の話（親御さんへ事前相談）</li>
-                <li>思春期ってなに？どんなふうに変わっていくの？</li>
-                <li>デリケートゾーンの知識、正しい洗い方</li>
-                <li>生理や射精って？（生理用品・コンドームを触ってみよう／実験／ご希望者のみ）</li>
-                <li>自分を大切にするってどういうこと？</li>
-              </ul>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講座費</span>
-                <span class="service-price-amount">5,000円</span>
-                <span class="service-price-note">90〜120分</span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講座費</span>
+              <span class="service-price-amount">5,000円</span>
+              <span class="service-price-note">90〜120分</span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">扱うテーマ</h5>
+                <ul class="service-card-detail-list">
+                  <li>赤ちゃんはどこから生まれてくるの？／タッチケア／あなたが生まれた時のおはなし</li>
+                  <li>命のはじまり、性交の話（親御さんへ事前相談）</li>
+                  <li>思春期ってなに？どんなふうに変わっていくの？</li>
+                  <li>デリケートゾーンの知識、正しい洗い方</li>
+                  <li>生理や射精って？（生理用品・コンドームを触ってみよう／実験／ご希望者のみ）</li>
+                  <li>自分を大切にするってどういうこと？</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </article>
 
-        <article class="service-card service-card--yellow">
-          <div class="service-card-top">
-            <div class="service-card-image">
-              <img src="images/service/service-online-lesson.jpg" alt="オンラインで行う個別レッスンの様子" loading="lazy">
-            </div>
+        <article class="service-card service-card--yellow reveal reveal-delay-2">
+          <div class="service-card-image">
+            <img src="images/service/service-online-lesson.jpg" alt="オンラインで行う個別レッスンの様子" loading="lazy">
+          </div>
+          <div class="service-card-body">
             <div class="service-card-summary">
               <span class="service-card-tag tag-yellow">オンライン</span>
-              <h3 class="service-card-title">個別レッスン</h3>
+              <h4 class="service-card-title">個別レッスン</h4>
               <p class="service-card-desc">保護者の方向けの、1対1のオンライン個別レッスン。お子様の同席もOKです。</p>
               <ul class="service-card-points">
                 <li>対象：保護者様（ご希望あればお子様も同席OK）</li>
@@ -484,31 +510,38 @@
                 <li>形式:オンライン（Zoom等）</li>
               </ul>
             </div>
-          </div>
-          <div class="service-card-body">
-            <div class="service-card-detail">
-              <h4 class="service-card-detail-heading">3つのコース</h4>
-              <div class="service-feature-grid">
-                <div class="service-feature-step service-feature-step--teal">
-                  <p class="service-feature-step-title">❶ こども性教育</p>
-                  <p class="service-feature-step-text">赤ちゃんはどこから／命のはじまり・性交（事前相談）／思春期／デリケートゾーンの知識／生理や射精／自分を大切にするとは</p>
-                </div>
-                <div class="service-feature-step service-feature-step--green">
-                  <p class="service-feature-step-title">❷ 男の子編</p>
-                  <p class="service-feature-step-text">男の子の心と身体の変化／ペニスの話・洗い方・ケア／セルフプレジャー／思春期男児のトリセツ／高校男児お悩みTOP3／ネットとの関わり方</p>
-                </div>
-                <div class="service-feature-step service-feature-step--red">
-                  <p class="service-feature-step-title">❸ 女の子編</p>
-                  <p class="service-feature-step-text">女の子の心と身体の変化／子宮頸がんワクチン現場からの見解／生理との付き合い方・生理用品／デリケートゾーン洗い方・ケア／思春期女子のお悩みTOP5／ネットとの関わり方</p>
-                </div>
-              </div>
 
-              <div class="service-price-box">
-                <span class="service-price-label">講座費</span>
-                <span class="service-price-amount">5,000円</span>
-                <span class="service-price-note">60〜90分</span>
-              </div>
+            <div class="service-price-box">
+              <span class="service-price-label">講座費</span>
+              <span class="service-price-amount">5,000円</span>
+              <span class="service-price-note">60〜90分</span>
             </div>
+
+            <details class="service-detail">
+              <summary class="service-detail-toggle">
+                <span>講座の詳細</span>
+                <span class="service-detail-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="service-detail-body">
+                <h5 class="service-card-detail-heading">3つのコース</h5>
+                <div class="service-feature-grid">
+                  <div class="service-feature-step service-feature-step--teal">
+                    <p class="service-feature-step-title">❶ こども性教育</p>
+                    <p class="service-feature-step-text">赤ちゃんはどこから／命のはじまり・性交（事前相談）／思春期／デリケートゾーンの知識／生理や射精／自分を大切にするとは</p>
+                  </div>
+                  <div class="service-feature-step service-feature-step--green">
+                    <p class="service-feature-step-title">❷ 男の子編</p>
+                    <p class="service-feature-step-text">男の子の心と身体の変化／ペニスの話・洗い方・ケア／セルフプレジャー／思春期男児のトリセツ／高校男児お悩みTOP3／ネットとの関わり方</p>
+                  </div>
+                  <div class="service-feature-step service-feature-step--red">
+                    <p class="service-feature-step-title">❸ 女の子編</p>
+                    <p class="service-feature-step-text">女の子の心と身体の変化／子宮頸がんワクチン現場からの見解／生理との付き合い方・生理用品／デリケートゾーン洗い方・ケア／思春期女子のお悩みTOP5／ネットとの関わり方</p>
+                  </div>
+                </div>
+              </div>
+            </details>
           </div>
         </article>
 

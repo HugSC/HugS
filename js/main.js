@@ -1,37 +1,6 @@
 (function () {
   'use strict';
 
-  // ===== Service Tabs =====
-  var serviceTabs = document.querySelectorAll('.service-tab');
-  var servicePanels = document.querySelectorAll('.service-panel');
-  serviceTabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var target = tab.getAttribute('data-target');
-      serviceTabs.forEach(function (t) {
-        var active = t === tab;
-        t.classList.toggle('is-active', active);
-        t.setAttribute('aria-selected', active ? 'true' : 'false');
-      });
-      servicePanels.forEach(function (p) {
-        var active = p.id === target;
-        p.classList.toggle('is-active', active);
-        if (active) {
-          p.removeAttribute('hidden');
-        } else {
-          p.setAttribute('hidden', '');
-        }
-      });
-    });
-    tab.addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      e.preventDefault();
-      var idx = Array.prototype.indexOf.call(serviceTabs, tab);
-      var next = e.key === 'ArrowRight' ? (idx + 1) % serviceTabs.length : (idx - 1 + serviceTabs.length) % serviceTabs.length;
-      serviceTabs[next].focus();
-      serviceTabs[next].click();
-    });
-  });
-
   // ===== Header shadow on scroll =====
   var header = document.getElementById('siteHeader');
   var ticking = false;
