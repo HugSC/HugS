@@ -1042,7 +1042,7 @@ a { color: inherit; }
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  align-items: stretch;
+  align-items: start;
 }
 .service-card {
   background: var(--white);
@@ -1290,10 +1290,22 @@ a { color: inherit; }
 /* 狭幅カード内ではフローを縦1列に（5列→縦並び・矢印は下向き） */
 .service-detail-body .service-flow-list {
   grid-template-columns: 1fr;
-  gap: 30px;
+  gap: 46px; /* 次ステップのSTEP.○バッジと下向き矢印が重ならないよう余白を確保 */
 }
 .service-detail-body .service-flow-step {
   padding: 22px 18px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 10px;
+}
+/* 時間ピルとタイトルを同じ行に並べ、説明文だけ次行へ折り返す */
+.service-detail-body .service-flow-step-time {
+  margin: 0;
+}
+.service-detail-body .service-flow-step-title {
+  margin: 0;
 }
 .service-detail-body .service-flow-step:not(:last-child)::after {
   top: auto;
@@ -1303,6 +1315,8 @@ a { color: inherit; }
   transform: translateX(-50%) rotate(135deg);
 }
 .service-detail-body .service-flow-step-text {
+  flex: 0 0 100%;
+  margin: 6px 0 0;
   text-align: center;
 }
 
