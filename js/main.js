@@ -1,28 +1,34 @@
 (function () {
   'use strict';
 
-  // ===== Header shadow on scroll =====
-  var header = document.getElementById('siteHeader');
-  var ticking = false;
-  function updateHeader() {
-    var y = window.scrollY;
-    if (y > 8) header.classList.add('is-scrolled');
-    else header.classList.remove('is-scrolled');
-    ticking = false;
-  }
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      window.requestAnimationFrame(updateHeader);
+  // スクロール/リサイズ等の高頻度イベントを requestAnimationFrame で間引く共通ヘルパ。
+  // 1フレームにつき最大1回だけ fn を呼ぶ（header/floatingCTA/scrollSpy で共用）。
+  function rafThrottle(fn) {
+    let ticking = false;
+    return function () {
+      if (ticking) return;
       ticking = true;
-    }
-  }, { passive: true });
+      window.requestAnimationFrame(function () {
+        fn();
+        ticking = false;
+      });
+    };
+  }
+
+  // ===== Header shadow on scroll =====
+  const header = document.getElementById('siteHeader');
+  function updateHeader() {
+    if (window.scrollY > 8) header.classList.add('is-scrolled');
+    else header.classList.remove('is-scrolled');
+  }
+  window.addEventListener('scroll', rafThrottle(updateHeader), { passive: true });
   updateHeader();
 
   // ===== Mobile menu =====
-  var menuToggle = document.getElementById('menuToggle');
-  var headerNav = document.getElementById('headerNav');
-  var drawerOverlay = document.getElementById('drawerOverlay');
-  var body = document.body;
+  const menuToggle = document.getElementById('menuToggle');
+  const headerNav = document.getElementById('headerNav');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const body = document.body;
 
   function openMenu() {
     headerNav.classList.add('is-open');
@@ -39,7 +45,7 @@
     body.style.overflow = '';
   }
   menuToggle.addEventListener('click', function () {
-    var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
     if (isOpen) closeMenu();
     else openMenu();
   });
@@ -59,46 +65,37 @@
   });
 
   // ===== Floating CTA visibility =====
-  var floatingCta = document.getElementById('floatingCta');
-  var contactSection = document.getElementById('contact-form');
+  const floatingCta = document.getElementById('floatingCta');
+  const contactSection = document.getElementById('contact-form');
   function updateFloatingCta() {
-    var scrolled = window.scrollY;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var percent = docHeight > 0 ? (scrolled / docHeight) : 0;
-    var contactRect = contactSection.getBoundingClientRect();
-    var contactInView = contactRect.top < window.innerHeight && contactRect.bottom > 0;
+    const scrolled = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrolled / docHeight) : 0;
+    const contactRect = contactSection.getBoundingClientRect();
+    const contactInView = contactRect.top < window.innerHeight && contactRect.bottom > 0;
     if (percent > 0.15 && !contactInView) {
       floatingCta.classList.add('is-visible');
     } else {
       floatingCta.classList.remove('is-visible');
     }
   }
-  var floatTicking = false;
-  window.addEventListener('scroll', function () {
-    if (!floatTicking) {
-      window.requestAnimationFrame(function () {
-        updateFloatingCta();
-        floatTicking = false;
-      });
-      floatTicking = true;
-    }
-  }, { passive: true });
+  window.addEventListener('scroll', rafThrottle(updateFloatingCta), { passive: true });
   window.addEventListener('resize', updateFloatingCta);
   updateFloatingCta();
 
   // ===== Scroll spy for nav active state =====
-  var navLinks = document.querySelectorAll('.header-nav-list a[href^="#"]');
-  var sectionMap = {};
+  const navLinks = document.querySelectorAll('.header-nav-list a[href^="#"]');
+  const sectionMap = {};
   navLinks.forEach(function (link) {
-    var id = link.getAttribute('href').substring(1);
-    var sec = document.getElementById(id);
+    const id = link.getAttribute('href').substring(1);
+    const sec = document.getElementById(id);
     if (sec) sectionMap[id] = { link: link, section: sec };
   });
   function updateScrollSpy() {
-    var offset = 120;
-    var current = null;
+    const offset = 120;
+    let current = null;
     Object.keys(sectionMap).forEach(function (id) {
-      var rect = sectionMap[id].section.getBoundingClientRect();
+      const rect = sectionMap[id].section.getBoundingClientRect();
       if (rect.top - offset <= 0) current = id;
     });
     navLinks.forEach(function (l) { l.classList.remove('is-active'); });
@@ -106,25 +103,16 @@
       sectionMap[current].link.classList.add('is-active');
     }
   }
-  var spyTicking = false;
-  window.addEventListener('scroll', function () {
-    if (!spyTicking) {
-      window.requestAnimationFrame(function () {
-        updateScrollSpy();
-        spyTicking = false;
-      });
-      spyTicking = true;
-    }
-  }, { passive: true });
+  window.addEventListener('scroll', rafThrottle(updateScrollSpy), { passive: true });
   updateScrollSpy();
 
   // ===== Reveal on scroll =====
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-gentle');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-gentle');
   if (reduceMotion || !('IntersectionObserver' in window)) {
     reveals.forEach(function (el) { el.classList.add('is-visible'); });
   } else {
-    var io = new IntersectionObserver(function (entries) {
+    const io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
@@ -136,31 +124,31 @@
   }
 
   // ===== Parallax decoration =====
-  var parallaxDecos = document.querySelectorAll('.parallax-deco');
+  const parallaxDecos = document.querySelectorAll('.parallax-deco');
   if (!reduceMotion && parallaxDecos.length) {
     window.addEventListener('scroll', function () {
-      var y = window.scrollY;
+      const y = window.scrollY;
       parallaxDecos.forEach(function (el) {
-        var speed = parseFloat(el.dataset.speed) || 0.02;
+        const speed = parseFloat(el.dataset.speed) || 0.02;
         el.style.transform = 'translateY(' + (y * speed) + 'px)';
       });
     }, { passive: true });
   }
 
   // ===== Counter animation for stats =====
-  var counterEls = document.querySelectorAll('.stat-number .num');
+  const counterEls = document.querySelectorAll('.stat-number .num');
   if (counterEls.length && !reduceMotion && 'IntersectionObserver' in window) {
-    var counterObserver = new IntersectionObserver(function (entries) {
+    const counterObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          var el = entry.target;
-          var target = parseInt(el.dataset.count, 10);
-          var duration = 1600;
-          var start = performance.now();
+          const el = entry.target;
+          const target = parseInt(el.dataset.count, 10);
+          const duration = 1600;
+          const start = performance.now();
           function tick(now) {
-            var elapsed = now - start;
-            var progress = Math.min(elapsed / duration, 1);
-            var eased = 1 - Math.pow(1 - progress, 3);
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
             el.textContent = Math.round(target * eased);
             if (progress < 1) requestAnimationFrame(tick);
           }
@@ -179,21 +167,21 @@
   // ===== Primary button ripple hint =====
   document.querySelectorAll('.btn-primary').forEach(function (btn) {
     btn.addEventListener('pointermove', function (e) {
-      var rect = btn.getBoundingClientRect();
+      const rect = btn.getBoundingClientRect();
       btn.style.setProperty('--x', ((e.clientX - rect.left) / rect.width * 100) + '%');
       btn.style.setProperty('--y', ((e.clientY - rect.top) / rect.height * 100) + '%');
     });
   });
 
   // ===== Form basic handling (prevent navigation, show loading state) =====
-  var form = document.getElementById('applyForm');
+  const form = document.getElementById('applyForm');
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var submitBtn = form.querySelector('.btn-submit');
+      const submitBtn = form.querySelector('.btn-submit');
       if (!form.checkValidity()) {
         // find first invalid field and focus
-        var firstInvalid = form.querySelector(':invalid');
+        const firstInvalid = form.querySelector(':invalid');
         if (firstInvalid) {
           firstInvalid.focus();
           firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -210,10 +198,10 @@
   }
 
   // ===== Privacy Policy Dialog =====
-  var privacyDialog = document.getElementById('privacyDialog');
+  const privacyDialog = document.getElementById('privacyDialog');
   if (privacyDialog) {
-    var openBtns = document.querySelectorAll('[data-privacy-open]');
-    var closeBtns = privacyDialog.querySelectorAll('[data-privacy-close]');
+    const openBtns = document.querySelectorAll('[data-privacy-open]');
+    const closeBtns = privacyDialog.querySelectorAll('[data-privacy-close]');
 
     function openPrivacy() {
       if (typeof privacyDialog.showModal === 'function') {
