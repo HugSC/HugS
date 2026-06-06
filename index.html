@@ -1230,6 +1230,10 @@
 
     <div class="form-wrapper reveal-gentle reveal-delay-1">
       <form id="applyForm" novalidate>
+        <!-- スパム対策：人間には見えない項目。bot が入力すると送信側で無視します（CSSで画面外に隠しています） -->
+        <p class="form-hp" aria-hidden="true">
+          <label>このフィールドは空欄のままにしてください<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+        </p>
         <div class="checkbox-group" role="radiogroup" aria-labelledby="inquiryTypeTitle">
           <div class="checkbox-group-title" id="inquiryTypeTitle">
             お問い合わせ種別

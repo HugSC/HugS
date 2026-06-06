@@ -2556,6 +2556,123 @@ a { color: inherit; }
   flex-shrink: 0;
 }
 
+/* スパム対策の不可視フィールド（honeypot）：画面・読み上げの両方から隠す */
+.form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ===== お問い合わせフォーム：インライン・バリデーション ===== */
+/* テキスト/メール/テキストエリアのエラー枠（focus色より優先） */
+.form-input.is-invalid,
+.form-textarea.is-invalid {
+  border-color: var(--red);
+  background: rgba(212, 123, 106, 0.04);
+}
+.form-input.is-invalid:focus,
+.form-textarea.is-invalid:focus {
+  border-color: var(--red-deep);
+  box-shadow: 0 0 0 4px rgba(212, 123, 106, 0.12);
+}
+
+/* ラジオグループ／プライバシーチェックの警告 */
+.checkbox-group.is-invalid .checkbox-group-title {
+  color: var(--red-deep);
+}
+.checkbox-group.is-invalid .checkbox-item {
+  border-color: rgba(212, 123, 106, 0.5);
+}
+.privacy-check.is-invalid {
+  border-color: var(--red);
+  background: rgba(212, 123, 106, 0.04);
+}
+
+/* フィールド近傍のエラーメッセージ */
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--red-deep);
+  letter-spacing: 0.02em;
+  animation: fieldErrorIn var(--dur-base) var(--ease-out) both;
+}
+.field-error svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+@keyframes fieldErrorIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .field-error { animation: none; }
+}
+
+/* ===== お問い合わせフォーム：送信結果の表示 ===== */
+.form-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--red-light);
+  color: var(--red-deep);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.form-error svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-success {
+  text-align: center;
+  padding: 48px 24px;
+  animation: formSuccessIn var(--dur-slow) var(--ease-out) both;
+}
+.form-success .success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--main-teal);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(107, 158, 120, 0.35);
+}
+.form-success .success-icon svg {
+  width: 32px;
+  height: 32px;
+}
+.form-success h3 {
+  margin: 0 0 12px;
+  font-size: 21px;
+  color: var(--text);
+}
+.form-success p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-light);
+}
+@keyframes formSuccessIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== GENERAL CONTACT ===== */
 .general-contact {
   background: var(--base);

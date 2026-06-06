@@ -173,28 +173,251 @@
     });
   });
 
-  // ===== Form basic handling (prevent navigation, show loading state) =====
+  // ===== Form submission (Google Apps Script 経由でシート記録 + メール通知 + 自動返信) =====
+  // ▼▼▼ デプロイ後の Apps Script ウェブアプリURLをここに貼り付けてください ▼▼▼
+  //      （「フォーム連携/セットアップ手順.md」⑤で取得したURL）
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx99eMirkLJEkL7HpoiPtK8yQpEgU4gcfCzqI_pjVmdR5NoTGqnp7m7yn_Hh5PlOZRR/exec';
+  // ▲▲▲ 例: https://script.google.com/macros/s/AKf.../exec ▲▲▲
+
   const form = document.getElementById('applyForm');
   if (form) {
+    const submitBtn = form.querySelector('.btn-submit');
+    const submitBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+
+    // インライン・バリデーション対象の必須フィールド定義
+    // kind: 'text' | 'email' | 'radio' | 'checkbox'、anchor(): エラー表示・スクロールの基準要素
+    const requiredFields = [
+      {
+        kind: 'radio',
+        name: 'inquiry_type',
+        anchor: function () { return form.querySelector('.checkbox-group[role="radiogroup"]'); },
+        msgMissing: 'お問い合わせ種別を選択してください'
+      },
+      {
+        kind: 'text',
+        name: 'name',
+        anchor: function () { return document.getElementById('field-name').closest('.form-group'); },
+        msgMissing: 'お名前を入力してください'
+      },
+      {
+        kind: 'email',
+        name: 'email',
+        anchor: function () { return document.getElementById('field-email').closest('.form-group'); },
+        msgMissing: 'メールアドレスを入力してください',
+        msgFormat: 'メールアドレスの形式が正しくありません'
+      },
+      {
+        kind: 'text',
+        name: 'message',
+        anchor: function () { return document.getElementById('field-message').closest('.form-group'); },
+        msgMissing: 'ご要望・ご質問を入力してください'
+      },
+      {
+        kind: 'checkbox',
+        name: 'privacy',
+        anchor: function () { return form.querySelector('.privacy-check'); },
+        msgMissing: 'プライバシーポリシーへの同意が必要です'
+      }
+    ];
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      const submitBtn = form.querySelector('.btn-submit');
-      if (!form.checkValidity()) {
-        // find first invalid field and focus
-        const firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) {
-          firstInvalid.focus();
-          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+
+      // 入力チェック。無効な必須項目すべてに赤枠＋メッセージを付け、先頭の不備項目へスクロール。
+      clearFieldErrors();
+      clearFormError(); // フォーム全体エラーが残っていれば消す（二重表示防止）
+      var firstInvalidEl = null;
+      for (var fi = 0; fi < requiredFields.length; fi++) {
+        var focusEl = validateField(requiredFields[fi]); // 無効なら focus 先要素、有効なら null
+        if (focusEl && !firstInvalidEl) firstInvalidEl = focusEl;
+      }
+      if (firstInvalidEl) {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        firstInvalidEl.focus({ preventScroll: true });
+        firstInvalidEl.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
         return;
       }
+
+      // 送信先URLが未設定のまま公開された場合の安全策（誤って「送信できた」風に見せない）
+      if (!FORM_ENDPOINT || FORM_ENDPOINT.indexOf('PASTE_YOUR') === 0) {
+        showFormError('送信先が設定されていません。お手数ですがメールにてご連絡ください。');
+        return;
+      }
+
+      clearFormError();
       submitBtn.disabled = true;
       submitBtn.innerHTML = '送信しています…';
-      // Placeholder: actual submission goes here
-      setTimeout(function () {
-        submitBtn.innerHTML = 'ありがとうございました';
-      }, 800);
+
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form), // multipart/form-data。プリフライト不要で GAS にそのまま届く
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data && data.ok) {
+            showFormSuccess();
+          } else {
+            throw new Error((data && data.error) || 'unknown');
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = submitBtnHTML;
+          showFormError('送信に失敗しました。通信環境をご確認のうえ、もう一度お試しください。');
+        });
     });
+
+    // 入力・選択が行われたら、その項目のエラー表示を解除（修正中の即時フィードバック）
+    form.addEventListener('input', function (e) { clearFieldErrorFor(e.target); });
+    form.addEventListener('change', function (e) { clearFieldErrorFor(e.target); });
+
+    // 送信完了：フォームを隠し、「ありがとうございました」表示に差し替える
+    function showFormSuccess() {
+      const wrapper = form.parentNode;
+      const success = document.createElement('div');
+      success.className = 'form-success';
+      success.setAttribute('role', 'status');
+      success.innerHTML =
+        '<div class="success-icon" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+        '</div>' +
+        '<h3>送信が完了しました</h3>' +
+        '<p>お問い合わせいただき、ありがとうございます。<br>' +
+        'ご入力のメールアドレスへ確認メールをお送りしました。<br>' +
+        '内容を確認のうえ、順次お返事いたします。</p>';
+      form.style.display = 'none';
+      wrapper.appendChild(success);
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // エラーメッセージを送信ボタンの直前に表示
+    function showFormError(message) {
+      clearFormError();
+      const err = document.createElement('div');
+      err.className = 'form-error';
+      err.setAttribute('role', 'alert');
+      err.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+        '<span></span>';
+      err.querySelector('span').textContent = message;
+      submitBtn.parentNode.insertBefore(err, submitBtn);
+      err.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearFormError() {
+      const existing = form.querySelector('.form-error');
+      if (existing) existing.parentNode.removeChild(existing);
+    }
+
+    // ===== インライン・バリデーション（フィールド単位の赤枠＋メッセージ）=====
+
+    // .field-error 要素を生成（showFormError と同系の警告アイコンでトーンを統一）
+    function buildFieldError(id, message) {
+      var p = document.createElement('p');
+      p.className = 'field-error';
+      p.id = id;
+      p.setAttribute('role', 'alert');
+      p.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>' +
+        '<span></span>';
+      p.querySelector('span').textContent = message;
+      return p;
+    }
+
+    // 1項目を検証。無効なら赤枠＋メッセージ＋aria属性を付与し、focus先要素を返す。有効なら null。
+    function validateField(def) {
+      var errId = def.name + '-error';
+      if (def.kind === 'radio') {
+        var radios = form.querySelectorAll('input[name="' + def.name + '"]');
+        var checked = false;
+        for (var r = 0; r < radios.length; r++) { if (radios[r].checked) { checked = true; break; } }
+        if (checked) return null;
+        var group = def.anchor();
+        group.classList.add('is-invalid');
+        group.setAttribute('aria-invalid', 'true');
+        if (!document.getElementById(errId)) {
+          group.appendChild(buildFieldError(errId, def.msgMissing));
+          group.setAttribute('aria-describedby', errId);
+        }
+        return radios[0] || group;
+      }
+      if (def.kind === 'checkbox') {
+        var cb = form.elements[def.name];
+        if (cb.checked) return null;
+        var box = def.anchor();
+        box.classList.add('is-invalid');
+        cb.setAttribute('aria-invalid', 'true');
+        if (!document.getElementById(errId)) {
+          // .privacy-check は flex 横並びのため、メッセージはボックスの直後に挿入する
+          box.parentNode.insertBefore(buildFieldError(errId, def.msgMissing), box.nextSibling);
+          cb.setAttribute('aria-describedby', errId);
+        }
+        return cb;
+      }
+      // text / email
+      var el = form.elements[def.name];
+      if (el.validity.valid) return null;
+      var message = (el.validity.typeMismatch && def.msgFormat) ? def.msgFormat : def.msgMissing;
+      el.classList.add('is-invalid');
+      el.setAttribute('aria-invalid', 'true');
+      if (!document.getElementById(errId)) {
+        def.anchor().appendChild(buildFieldError(errId, message));
+        el.setAttribute('aria-describedby', errId);
+      }
+      return el;
+    }
+
+    // すべてのフィールドエラーを解除（submit 冒頭で使用）
+    function clearFieldErrors() {
+      form.querySelectorAll('.field-error').forEach(function (el) { el.parentNode.removeChild(el); });
+      form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
+      form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+      form.querySelectorAll('[aria-describedby]').forEach(function (el) {
+        var v = el.getAttribute('aria-describedby');
+        if (v && v.indexOf('-error') !== -1) el.removeAttribute('aria-describedby');
+      });
+    }
+
+    // 入力された項目が valid になったら、その項目のエラーだけ解除
+    function clearFieldErrorFor(target) {
+      if (!target || !target.name) return;
+      var def = null;
+      for (var i = 0; i < requiredFields.length; i++) {
+        if (requiredFields[i].name === target.name) { def = requiredFields[i]; break; }
+      }
+      if (!def) return;
+      var nowValid;
+      if (def.kind === 'radio') {
+        var radios = form.querySelectorAll('input[name="' + def.name + '"]');
+        nowValid = false;
+        for (var r = 0; r < radios.length; r++) { if (radios[r].checked) { nowValid = true; break; } }
+      } else if (def.kind === 'checkbox') {
+        nowValid = form.elements[def.name].checked;
+      } else {
+        nowValid = form.elements[def.name].validity.valid;
+      }
+      if (!nowValid) return;
+
+      var existing = document.getElementById(def.name + '-error');
+      if (existing) existing.parentNode.removeChild(existing);
+      if (def.kind === 'radio') {
+        var rgroup = def.anchor();
+        rgroup.classList.remove('is-invalid');
+        rgroup.removeAttribute('aria-invalid');
+        rgroup.removeAttribute('aria-describedby');
+      } else if (def.kind === 'checkbox') {
+        var cbox = def.anchor();
+        cbox.classList.remove('is-invalid');
+        var cb2 = form.elements[def.name];
+        cb2.removeAttribute('aria-invalid');
+        cb2.removeAttribute('aria-describedby');
+      } else {
+        var el2 = form.elements[def.name];
+        el2.classList.remove('is-invalid');
+        el2.removeAttribute('aria-invalid');
+        el2.removeAttribute('aria-describedby');
+      }
+    }
   }
 
   // ===== Privacy Policy Dialog =====
