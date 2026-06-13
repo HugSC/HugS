@@ -176,7 +176,7 @@
   // ===== Form submission (Google Apps Script 経由でシート記録 + メール通知 + 自動返信) =====
   // ▼▼▼ デプロイ後の Apps Script ウェブアプリURLをここに貼り付けてください ▼▼▼
   //      （「フォーム連携/セットアップ手順.md」⑤で取得したURL）
-  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx99eMirkLJEkL7HpoiPtK8yQpEgU4gcfCzqI_pjVmdR5NoTGqnp7m7yn_Hh5PlOZRR/exec';
+  const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxmTiI5vnJ6etxxPXUpQfcl_8yr5sxe0mLpbGz4SPzzsjAv113HishqY_eaFeATE1rj/exec';
   // ▲▲▲ 例: https://script.google.com/macros/s/AKf.../exec ▲▲▲
 
   const form = document.getElementById('applyForm');
